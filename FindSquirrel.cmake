@@ -25,10 +25,13 @@ if(NOT SQUIRREL_FOUND)
     message(FATAL_ERROR "squirrel not found")
   endif()
 
+  # merge sqstdlib and squirrel, since pkg-config doesn't tell them appart
+  set(SQUIRREL_LIBRARIES ${SQUIRREL_LIBRARIES} ${SQSTDLIB_LIBRARIES})
+
   add_library(PkgConfig::SQUIRREL INTERFACE IMPORTED)
-  target_link_libraries(PkgConfig::SQUIRREL INTERFACE ${SQUIRREL_LIBRARIES} ${SQSTDLIB_LIBRARIES})
+  target_link_libraries(PkgConfig::SQUIRREL INTERFACE ${SQUIRREL_LIBRARIES})
   target_include_directories(PkgConfig::SQUIRREL INTERFACE ${SQUIRREL_INCLUDE_DIRS})
-  message(STATUS "Found Squirrel: ${SQUIRREL_LIBRARIES} ${SQSTDLIB_LIBRARIES} ${SQUIRREL_INCLUDE_DIRS}")
+  message(STATUS "Found Squirrel: ${SQUIRREL_LIBRARIES} ${SQUIRREL_INCLUDE_DIRS}")
 endif()
 
 # CMake can't do aliases on imported target, so some hackery
@@ -44,7 +47,7 @@ foreach(name
 endforeach()
 
 find_package_handle_standard_args(Squirrel
-  REQUIRED_VARS SQUIRREL_LIBRARIES SQSTDLIB_LIBRARIES SQUIRREL_INCLUDE_DIRS
+  REQUIRED_VARS SQUIRREL_LIBRARIES SQUIRREL_INCLUDE_DIRS
   VERSION_VAR SQUIRREL_VERSION)
 
 # EOF #
