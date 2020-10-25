@@ -78,6 +78,7 @@ if(WARNINGS)
       -Wno-reserved-id-macro
       -Wno-sign-conversion
       -Wno-return-std-move-in-c++11
+      -Wno-gnu-zero-variadic-macro-arguments
 
       # warnings that should probably be fixed in code
       -Wno-documentation-unknown-command
