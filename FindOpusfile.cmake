@@ -21,9 +21,9 @@ if(PKG_CONFIG_FOUND)
   pkg_search_module(PC_OPUSFILE opusfile)
 endif()
 
-find_path(OPUSFILE_INCLUDE_DIRECTORY opus/opusfile.h
-  PATH_SUFFIXES "include"
+find_path(OPUSFILE_INCLUDE_DIRECTORY opusfile.h
   PATHS ${OPUSFILE_DIR} ${PC_OPUSFILE_INCLUDE_DIRS}
+  PATH_SUFFIXES "include/opus" "opus"
   )
 
 find_library(OPUSFILE_LIBRARY opusfile
