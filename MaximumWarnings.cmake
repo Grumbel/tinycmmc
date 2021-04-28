@@ -85,6 +85,7 @@ if(WARNINGS)
       -Wno-sign-conversion
       -Wno-return-std-move-in-c++11
       -Wno-gnu-zero-variadic-macro-arguments
+      -Wno-poison-system-directories
 
       # warnings that should probably be fixed in code
       -Wno-documentation-unknown-command
