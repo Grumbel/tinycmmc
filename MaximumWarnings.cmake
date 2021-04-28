@@ -42,7 +42,6 @@ if(WARNINGS)
       -Winvalid-pch
       -Wlogical-op
       -Wmissing-format-attribute
-      -Wmissing-include-dirs
       -Wmissing-noreturn
       -Wno-suggest-attribute=noreturn
       -Wno-unused-parameter
@@ -56,9 +55,16 @@ if(WARNINGS)
       -Wstrict-null-sentinel
       -Wsuggest-override
       -Wunreachable-code
-      -Wuseless-cast
       -Wzero-as-null-pointer-constant
       -pedantic
+
+      # Missing include dirs cause no harm and are sometimes tricky to
+      # avoid mulitplatform buildss
+      # -Wmissing-include-dirs
+
+      # Creates impossible to solve conflicts when combined with
+      # -Wconversion when doing both and 32/64bit builds
+      # -Wuseless-cast
       )
     if(CMAKE_CXX_COMPILER_VERSION VERSION_GREATER 8)
       list(APPEND WARNINGS_CXX_FLAGS -Wint-in-bool-context)
