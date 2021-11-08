@@ -1,25 +1,22 @@
 {
+  description = "A tiny CMake module collection";
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  description = "tinycmmc flake";
-
   outputs = { self, nixpkgs, flake-utils }:
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
-        buildTools = [ pkgs.cmake pkgs.ninja ];
-        inherit (nixpkgs) lib;
       in rec {
         packages = flake-utils.lib.flattenTree {
-          tinycmmc = pkgs.stdenv.mkDerivation rec {
+          tinycmmc = pkgs.stdenv.mkDerivation {
             pname = "tinycmmc";
             version = "0.1.0";
-            src = lib.cleanSource ./.;
-            nativeBuildInputs = buildTools;
-            # setupHook = ./setup-hook.sh;
+            src = nixpkgs.lib.cleanSource ./.;
+            nativeBuildInputs = [ pkgs.cmake pkgs.ninja ];
           };
         };
         defaultPackage = packages.tinycmmc;
