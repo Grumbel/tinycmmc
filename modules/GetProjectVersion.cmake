@@ -24,16 +24,25 @@
 include(GetGitRevisionDescription)
 
 function(get_project_version _outputvar)
-  if(EXISTS "${CMAKE_SOURCE_DIR}/VERSION")
-    file(STRINGS "${CMAKE_SOURCE_DIR}/VERSION" PROJECT_VERSION)
-    set(${_outputvar} "${PROJECT_VERSION}" PARENT_SCOPE)
-  elseif(EXISTS "${CMAKE_SOURCE_DIR}/.git")
+  if(EXISTS "${CMAKE_SOURCE_DIR}/.git")
     git_describe(GIT_REPO_VERSION "--tags" "--match" "v[0-9]*.[0-9]*.[0-9]*")
     string(REGEX REPLACE "^v([0-9].*)" "\\1" CLEANED_GIT_REPO_VERSION "${GIT_REPO_VERSION}")
+
     if(CLEANED_GIT_REPO_VERSION)
       set(${_outputvar} "${CLEANED_GIT_REPO_VERSION}" PARENT_SCOPE)
     else()
       set(${_outputvar} "${GIT_REPO_VERSION}" PARENT_SCOPE)
+    endif()
+  elseif(EXISTS "${CMAKE_SOURCE_DIR}/VERSION")
+    file(STRINGS "${CMAKE_SOURCE_DIR}/VERSION" PROJECT_VERSION)
+
+    if(PROJECT_VERSION MATCHES "^\\$")
+      # gitattribute $Format$ was not expanded
+      set(${_outputvar} "unknown-version" PARENT_SCOPE)
+    else()
+      # strip leading 'v', in case VERSION is generated from "git describe"
+      string(REGEX REPLACE "^v(.*)" "\\1" PROJECT_VERSION "${PROJECT_VERSION}")
+      set(${_outputvar} "${PROJECT_VERSION}" PARENT_SCOPE)
     endif()
   else()
     # optain version from directory
