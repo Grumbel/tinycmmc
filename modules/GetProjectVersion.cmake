@@ -58,4 +58,6 @@ endfunction()
 
 get_project_version(PROJECT_VERSION)
 
+message(STATUS "ProjectVersion: ${PROJECT_NAME} ${PROJECT_VERSION}")
+
 # EOF #
