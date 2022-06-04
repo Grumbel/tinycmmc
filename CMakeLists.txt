@@ -23,9 +23,7 @@ include(CMakePackageConfigHelpers)
 set(TINYCMMC_MODULE_INSTALL_DIR "${CMAKE_INSTALL_FULL_DATADIR}/${PROJECT_NAME}/cmake/modules/")
 set(TINYCMMC_CONFIG_INSTALL_DIR "${CMAKE_INSTALL_FULL_LIBDIR}/cmake/${PROJECT_NAME}/")
 
-file(GLOB TINYCMMC_MODULE_FILES modules/*.cmake modules/*.cmake.in)
-
-install(FILES ${TINYCMMC_MODULE_FILES}
+install(DIRECTORY modules/
   DESTINATION ${TINYCMMC_MODULE_INSTALL_DIR})
 
 configure_package_config_file(

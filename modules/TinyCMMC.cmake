@@ -16,10 +16,17 @@
 #    misrepresented as being the original software.
 # 3. This notice may not be removed or altered from any source distribution.
 
+include(GNUInstallDirs)
 include(GetProjectVersion)
 include(InstallWithWrapper)
 include(tinycmmc/MaximumWarnings)
 include(tinycmmc/FindDependency)
 include(tinycmmc/ExportAndInstallLibrary)
+
+WarningsWerrorOptions()
+
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
 # EOF #
