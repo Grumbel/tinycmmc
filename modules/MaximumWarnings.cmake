@@ -19,6 +19,9 @@
 # Fill the variable ${WARNINGS_CXX_FLAGS} with about as much warnings
 # flags as seem sensible for C++. Add WARNINGS and WERROR options to enable the flags
 
+# Old file for backward compatibility only, see
+# tinycmmc/MaximumWarnings.cmake for the new versions
+
 option(WARNINGS "Switch on extra warnings" OFF)
 option(WERROR "Turn warnings into errors" OFF)
 
