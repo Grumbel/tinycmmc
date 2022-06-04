@@ -1,3 +1,6 @@
+# Old file for backward compatibility only, see
+# tinycmmc/ExportAndInstallLibrary.cmake for the new versions
+
 install(TARGETS "${PROJECT_NAME}"
   EXPORT "${PROJECT_NAME}"
   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
