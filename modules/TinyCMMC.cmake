@@ -19,6 +19,7 @@
 include(GNUInstallDirs)
 include(GetProjectVersion)
 include(InstallWithWrapper)
+include(ClangTidy)
 include(tinycmmc/MaximumWarnings)
 include(tinycmmc/FindDependency)
 include(tinycmmc/ExportAndInstallLibrary)
