@@ -58,6 +58,7 @@ endfunction()
 
 get_project_version(PROJECT_VERSION)
 
-message(STATUS "ProjectVersion: ${PROJECT_NAME} ${PROJECT_VERSION}")
+message(STATUS "Project Name: ${PROJECT_NAME}")
+message(STATUS "Project Version: ${PROJECT_VERSION}")
 
 # EOF #
