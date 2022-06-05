@@ -30,4 +30,12 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/tests)
+  option(BUILD_TESTS "Build test cases" OFF)
+endif()
+
+if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/extra)
+  option(BUILD_EXTRA "Build extra stuff" OFF)
+endif()
+
 # EOF #
