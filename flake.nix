@@ -15,17 +15,17 @@
         pkgs = nixpkgs.legacyPackages.${system};
         lib = import ./. { inherit nixpkgs; };
       in rec {
-        packages = flake-utils.lib.flattenTree {
+        packages = flake-utils.lib.flattenTree rec {
           tinycmmc = pkgs.stdenv.mkDerivation {
             pname = "tinycmmc";
             version = lib.versionFromFile self;
             src = nixpkgs.lib.cleanSource ./.;
-            nativeBuildInputs = [
-              pkgs.cmake
+            nativeBuildInputs = with pkgs; [
+              cmake
             ];
           };
+          default = tinycmmc;
         };
-        defaultPackage = packages.tinycmmc;
       }
     );
 }
