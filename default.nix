@@ -16,7 +16,9 @@
 #    misrepresented as being the original software.
 # 3. This notice may not be removed or altered from any source distribution.
 
-{ nixpkgs }:
+{ nixpkgs
+, flake-utils
+}:
 let
   versionFromFileOr = project: fallback-version:
     let
@@ -31,12 +33,28 @@ let
 
   versionFromFile = project: versionFromFileOr project "unknown";
 
+  eachSystem  = (func:
+    flake-utils.lib.eachSystem (flake-utils.lib.defaultSystems ++ [ "x86_64-windows" "i686-windows" ]) func
+  );
+
+  pkgsFromSystem = (system:
+    if system == "x86_64-windows" then nixpkgs.legacyPackages.x86_64-linux.pkgsCross.mingwW64
+    else if system == "i686-windows" then nixpkgs.legacyPackages.x86_64-linux.pkgsCross.mingw32
+    else nixpkgs.legacyPackages.${system}
+  );
+
+  eachSystemWithPkgs = (func:
+    eachSystem (system: (func (pkgsFromSystem system)))
+  );
+
   lib = {
     inherit
       versionFromFileOr
       versionFromFile
+      eachSystem
+      pkgsFromSystem
+      eachSystemWithPkgs
     ;
   };
 in
 lib
-

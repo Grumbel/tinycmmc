@@ -7,25 +7,20 @@
   };
 
   outputs = { self, nixpkgs, flake-utils }:
-    {
-      lib = import ./. { inherit nixpkgs; };
-    } //
-    flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = nixpkgs.legacyPackages.${system};
-        lib = import ./. { inherit nixpkgs; };
-      in rec {
-        packages = flake-utils.lib.flattenTree rec {
-          tinycmmc = pkgs.stdenv.mkDerivation {
-            pname = "tinycmmc";
-            version = lib.versionFromFile self;
-            src = nixpkgs.lib.cleanSource ./.;
-            nativeBuildInputs = with pkgs; [
-              cmake
-            ];
+    let
+      tinycmmc_lib = import ./. { inherit nixpkgs flake-utils; };
+    in
+      {
+        lib = import ./. { inherit nixpkgs flake-utils; };
+      } //
+      tinycmmc_lib.eachSystemWithPkgs (pkgs:
+        rec {
+          packages = flake-utils.lib.flattenTree rec {
+            default = tinycmmc;
+            tinycmmc = pkgs.callPackage ./tinycmmc.nix {
+              inherit self tinycmmc_lib;
+            };
           };
-          default = tinycmmc;
-        };
-      }
-    );
+        }
+      );
 }
