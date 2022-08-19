@@ -37,6 +37,10 @@ let
     flake-utils.lib.eachSystem (flake-utils.lib.defaultSystems ++ [ "x86_64-windows" "i686-windows" ]) func
   );
 
+  eachWin32System  = (func:
+    flake-utils.lib.eachSystem [ "x86_64-windows" "i686-windows" ] func
+  );
+
   pkgsFromSystem = (system:
     if system == "x86_64-windows" then nixpkgs.legacyPackages.x86_64-linux.pkgsCross.mingwW64
     else if system == "i686-windows" then nixpkgs.legacyPackages.x86_64-linux.pkgsCross.mingw32
@@ -47,13 +51,19 @@ let
     eachSystem (system: (func (pkgsFromSystem system)))
   );
 
+  eachWin32SystemWithPkgs  = (func:
+    eachWin32System (system: (func (pkgsFromSystem system)))
+  );
+
   lib = {
     inherit
       versionFromFileOr
       versionFromFile
       eachSystem
+      eachWin32System
       pkgsFromSystem
       eachSystemWithPkgs
+      eachWin32SystemWithPkgs
     ;
   };
 in
