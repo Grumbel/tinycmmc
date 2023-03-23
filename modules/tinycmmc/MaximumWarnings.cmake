@@ -79,6 +79,7 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     -Wno-sign-conversion
     -Wno-gnu-zero-variadic-macro-arguments
     -Wno-poison-system-directories
+    -Wno-reserved-identifier  # triggers on FD_ZERO() macro
 
     # warnings that should probably be fixed in code
     -Wno-documentation-unknown-command
