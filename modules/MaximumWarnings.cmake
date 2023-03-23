@@ -86,7 +86,6 @@ if(WARNINGS)
       -Wno-documentation
       -Wno-reserved-id-macro
       -Wno-sign-conversion
-      -Wno-return-std-move-in-c++11
       -Wno-gnu-zero-variadic-macro-arguments
       -Wno-poison-system-directories
 
