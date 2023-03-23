@@ -2,7 +2,7 @@
   description = "A tiny CMake module collection";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-22.11";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -15,7 +15,7 @@
       } //
       tinycmmc_lib.eachSystemWithPkgs (pkgs:
         rec {
-          packages = flake-utils.lib.flattenTree rec {
+          packages = rec {
             default = tinycmmc;
             tinycmmc = pkgs.callPackage ./tinycmmc.nix {
               inherit self tinycmmc_lib;
