@@ -2,7 +2,7 @@
   description = "A tiny CMake module collection";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs?ref=nixos-25.05";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
