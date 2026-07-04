@@ -20,6 +20,14 @@
 , flake-utils
 }:
 let
+  # Read version number from VERSION and append the current git commit if available
+  versionFromVERSION = self:
+    let
+      versionBase = nixpkgs.lib.strings.removeSuffix "\n" (builtins.readFile ./VERSION);
+      gitRev = "${self.shortRev or self.dirtyShortRev or "dirty"}";
+    in
+      "${versionBase}+g${gitRev}";
+
   versionFromFileOr = project: fallback-version:
     let
       version_content = nixpkgs.lib.fileContents "${project}/VERSION";
@@ -57,6 +65,7 @@ let
 
   lib = {
     inherit
+      versionFromVERSION
       versionFromFileOr
       versionFromFile
       eachSystem

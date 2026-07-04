@@ -7,7 +7,7 @@
 
 stdenv.mkDerivation {
   pname = "tinycmmc";
-  version = tinycmmc_lib.versionFromFile self;
+  version = tinycmmc_lib.versionFromVERSION self;
 
   src = lib.cleanSource ./.;
 
