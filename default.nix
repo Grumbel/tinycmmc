@@ -23,7 +23,7 @@ let
   # Read version number from VERSION and append the current git commit if available
   versionFromVERSION = self:
     let
-      versionBase = nixpkgs.lib.strings.removeSuffix "\n" (builtins.readFile ./VERSION);
+      versionBase = nixpkgs.lib.strings.removeSuffix "\n" (builtins.readFile "${self.outPath}/VERSION");
       gitRev = "${self.shortRev or self.dirtyShortRev or "dirty"}";
     in
       "${versionBase}+g${gitRev}";
