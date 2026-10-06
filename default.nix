@@ -48,8 +48,12 @@ let
 
   versionFromFile = project: versionFromFileOr project "unknown";
 
+  # nixpkgs 26.11 dropped x86_64-darwin
   eachSystem  = (func:
-    flake-utils.lib.eachSystem (flake-utils.lib.defaultSystems ++ [ "x86_64-windows" "i686-windows" ]) func
+    flake-utils.lib.eachSystem
+      (builtins.filter (s: s != "x86_64-darwin")
+        (flake-utils.lib.defaultSystems ++ [ "x86_64-windows" "i686-windows" ]))
+      func
   );
 
   eachWin32System  = (func:
